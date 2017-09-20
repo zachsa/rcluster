@@ -1,0 +1,25 @@
+{
+    "PrivateKey": "/home/<username>/.ssh/id_rsa",
+    "knownHostsDir": "/home/<username>/.ssh/known_hosts",
+    "Servers": [
+        "n1.domain.com",
+        "n2.domain.com",
+        "n3.domain.com"
+    ],
+    "User": "root",
+    "CouchUser": "admin",
+    "CouchPswd": "password",
+    "CouchBindPort": 5984,
+    "DBs": [
+        {
+            "name": "db1",
+            "q": 3,
+            "n": 1
+        },
+        {
+            "name": "db2",
+            "q": 3,
+            "n": 1
+        }
+    ]
+}
