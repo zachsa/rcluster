@@ -5,16 +5,16 @@ apt-get update
 apt-get install build-essential -y
 
 # Update openssl to 1.0.2l
-# cd /usr/src
-# wget https://www.openssl.org/source/openssl-1.0.2l.tar.gz
-# tar -zxf openssl-1.0.2l.tar.gz
-# cd openssl-1.0.2l
-# ./config
-# make
-# make test
-# make install
-# mv /usr/bin/openssl /root/
-# ln -s /usr/local/ssl/bin/openssl /usr/bin/openssl
+cd /usr/src
+wget https://www.openssl.org/source/openssl-1.0.2l.tar.gz
+tar -zxf openssl-1.0.2l.tar.gz
+cd openssl-1.0.2l
+./config
+make
+make test
+make install
+mv /usr/bin/openssl /root/
+ln -s /usr/local/ssl/bin/openssl /usr/bin/openssl
 
 # Python
 apt-get update

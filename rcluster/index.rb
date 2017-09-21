@@ -11,8 +11,6 @@ P_KEY_PATH = ARGV[3]
 KEYS = [File.read(P_KEY_PATH)]
 USER = "root" 
 
-
-
 # Login to server via SSH
 log "Logging into #{HOST}...", HOST
 server = Server.new(USER, HOST, KEYS)
@@ -36,17 +34,21 @@ log "Complete.", HOST
 # server.doCommand "service nginx reload;", false
 # log "Complete.", HOST
 
-# Install CouchDB
-log "Installing CouchDB...", HOST
-server.doCommand "echo 'deb https://apache.bintray.com/couchdb-deb xenial main' | sudo tee -a /etc/apt/sources.list", false
-server.doCommand "curl -L https://couchdb.apache.org/repo/bintray-pubkey.asc | sudo apt-key add -", false
-server.doCommand "apt-get update", false
+# Preseed debconf
+log "Preseeding debconf...", HOST
 server.doCommand "debconf-set-selections <<< 'couchdb couchdb/bindaddress string 0.0.0.0';", false
 server.doCommand "debconf-set-selections <<< 'couchdb couchdb/cookie string monster';", false
 server.doCommand "debconf-set-selections <<< 'couchdb couchdb/mode string clustered';", false
 server.doCommand "debconf-set-selections <<< 'couchdb couchdb/nodename string couchdb@#{HOST}';", false
 server.doCommand "debconf-set-selections <<< 'couchdb couchdb/adminpass password #{COUCH_PSWD}';", false
 server.doCommand "debconf-set-selections <<< 'couchdb couchdb/adminpass_again password #{COUCH_PSWD}';", false
+log "Complete.", HOST
+
+# Install CouchDB
+log "Installing CouchDB...", HOST
+server.doCommand "echo 'deb https://apache.bintray.com/couchdb-deb xenial main' | sudo tee -a /etc/apt/sources.list", false
+server.doCommand "curl -L https://couchdb.apache.org/repo/bintray-pubkey.asc | sudo apt-key add -", false
+server.doCommand "apt-get update", false
 server.doCommand "apt-get install couchdb -y", false
 log "Complete.", HOST
 
